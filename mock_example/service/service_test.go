@@ -39,9 +39,9 @@ func TestCreateUser(t *testing.T) {
 			eventNotifier := mocks.NewEventNotifier(t)
 
 			// задаем поведение мок-объектов
-			userProvider.On("User", mock.Anything, tt.args.user.Email).Once().Return(nil, nil)
-			userCreator.On("Create", mock.Anything, tt.args.user).Once().Return(0, nil)
-			eventNotifier.On("NotifyUserCreated", mock.Anything, tt.args.user).Once().Return(nil)
+			userProvider.On("User", mock.AnythingOfType("context.Context"), tt.args.user.Email).Once().Return(nil, nil)
+			userCreator.On("Create", mock.AnythingOfType("context.Context"), tt.args.user).Once().Return(0, nil)
+			eventNotifier.On("NotifyUserCreated", mock.AnythingOfType("context.Context"), tt.args.user).Once().Return(nil)
 
 			s := &Service{
 				userCreator:   userCreator,
